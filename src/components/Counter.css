@@ -21,9 +21,7 @@
 
 }
 
-.counterRed {
-    color: Red
-}
+
 
 .buttonsWrapper {
     display: block;
@@ -56,6 +54,22 @@
     background-color: #61dafb;
     margin: 5px;
     font-size: 40px;
+}
 
+.counterRed {
+    color: Red;
+    font-weight: bolder;
+}
 
+.counterMessage {
+    font-size: 20px;
+    font-weight: bolder;
+    padding-top: 20px
+}
+
+.error {
+    color: Red;
+    font-weight: bolder;
+    font-size: 20px;
+    padding-top: 20px
 }

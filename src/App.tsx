@@ -6,11 +6,12 @@ import {SetCounter} from './components/SetCounter';
 function App() {
 
 
-    const [maxValue, setMaxValue] = useState(6)
+    const [maxValue, setMaxValue] = useState(5)
     const [startValue, setStartValue] = useState(0)
     const [counterValue, setCounterValue] = useState(startValue)
     const [error, setError] = useState<string | null>(null)
-
+    const [message, setMessage] = useState<string | null>(null)
+    const [editMode, setEditMode] = useState(false)
 
 
     const incCounterValue = () => {
@@ -21,9 +22,17 @@ function App() {
         setCounterValue(startValue)
     }
 
-    const setButtonHandler = () => {
-        if (startValue > maxValue) {
-            setError('error')
+    const setValues = (maxInputValue: number, startInputValue: number) => {
+        if (startInputValue > maxInputValue) {
+            alert('incorrect value!')
+           // setError('incorrect value!')
+        } else {
+            //alert('nice work')
+            setError(null)
+            setMaxValue(maxInputValue)
+            setStartValue(startInputValue)
+            setCounterValue(startInputValue)
+            setEditMode(false)
         }
     }
 
@@ -31,9 +40,11 @@ function App() {
         <div className="App">
             <SetCounter maxValue={maxValue}
                         startValue={startValue}
-                        setButtonHandler={setButtonHandler}
-                        setMaxValue={setMaxValue}
-                        setStartValue={setStartValue}
+                        setValues={setValues}
+                        setMessage={setMessage}
+                        setError={setError}
+                        editMode={editMode}
+                        setEditMode={setEditMode}
             />
             <Counter maxValue={maxValue}
                      startValue={startValue}
@@ -41,6 +52,8 @@ function App() {
                      incCounterValue={incCounterValue}
                      resetCounterValue={resetCounterValue}
                      error={error}
+                     message={message}
+                     editMode={editMode}
 
             />
         </div>

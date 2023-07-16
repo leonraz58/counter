@@ -10,6 +10,8 @@ type CounterPropsType = {
     incCounterValue: () => void
     resetCounterValue: () => void
     error: string | null
+    message: string | null
+    editMode: boolean
 }
 
 export const Counter = (props: CounterPropsType) => {
@@ -25,7 +27,12 @@ export const Counter = (props: CounterPropsType) => {
     return (
         <div className={"wrapper"}>
             <div className={"countWrapper"}>
-                <div className={props.counterValue === props.maxValue ? 'counterRed' : ''}>{props.error ? props.error : props.counterValue}</div>
+                <div className={props.error ? 'error' :
+                    props.message ? 'counterMessage' :
+                        props.counterValue === props.maxValue ? 'counterRed' : ''
+                }>
+                    {props.error ? props.error : props.message ? props.message : props.counterValue}
+                </div>
 
             </div>
             <div className={"buttonsWrapper"}>
@@ -39,8 +46,10 @@ export const Counter = (props: CounterPropsType) => {
                 {/*        onClick={onClickResetHandler}*/}
                 {/*>reset*/}
                 {/*</button>*/}
-                <Button className={"class-1"} name={"inc"} disabled={props.counterValue >= props.maxValue} onClick={onClickIncHandler}/>
-                <Button className={"class-2"} name={"reset"} disabled={props.counterValue === 0} onClick={onClickResetHandler}/>
+                <Button className={"class-1"} name={"inc"} disabled={props.counterValue >= props.maxValue || props.editMode}
+                        onClick={onClickIncHandler}/>
+                <Button className={"class-2"} name={"reset"} disabled={props.counterValue <= props.startValue || props.editMode}
+                        onClick={onClickResetHandler}/>
             </div>
         </div>
     )
