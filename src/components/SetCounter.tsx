@@ -10,6 +10,7 @@ type SetCounterPropsType = {
     setMessage: (message: string | null) => void
     editMode: boolean
     setEditMode:(editMode: boolean) => void
+    error: string | null
 }
 export const SetCounter = (props: SetCounterPropsType) => {
 
@@ -17,21 +18,30 @@ export const SetCounter = (props: SetCounterPropsType) => {
     const [inputMaxCounterValue, setInputMaxCounterValue] = useState(props.maxValue)
     const [inputStartCounterValue, setInputStartCounterValue] = useState(props.startValue)
 
+    let maxInputError = false
+    let startInputError = false
+
     if (inputMaxCounterValue < inputStartCounterValue) {
         props.setError('incorrect value!')
-        //alert('error')
-        //props.setMessage(null)
+        maxInputError = true
+        startInputError = true
     } else {
         props.setError(null)
-        //props.setMessage('input correct value and press enter')
-        //alert('nice')
     }
+    if (inputMaxCounterValue < 0) {
+        props.setError('incorrect value!')
+        maxInputError = true
+    }
+
+    if (inputStartCounterValue < 0) {
+        props.setError('incorrect value!')
+        startInputError = true
+    }
+
     const changeMaxValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
         setInputMaxCounterValue(+event.currentTarget.value)
         props.setMessage('enter values and press set')
         props.setEditMode(true)
-        //props.setError(null)
-        //checkErrors()
     }
 
     const changeStartValueHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -48,26 +58,24 @@ export const SetCounter = (props: SetCounterPropsType) => {
     return (
         <div className={"wrapper"}>
             <div className={"setCounterWrapper"}>
-                <div>max value: <input type={"Number"} value={inputMaxCounterValue} onChange={changeMaxValueHandler}/>
+                <div>max value: <input className={maxInputError ? 'inputRed' : ''}
+                                       type={"Number"}
+                                       value={inputMaxCounterValue}
+                                       onChange={changeMaxValueHandler}
+                />
                 </div>
-                <div>start value: <input type={"Number"} value={inputStartCounterValue}
-                                         onChange={changeStartValueHandler}/></div>
+                <div>start value: <input className={startInputError ? 'inputRed' : ''}
+                                         type={"Number"}
+                                         value={inputStartCounterValue}
+                                         onChange={changeStartValueHandler}
+                />
+                </div>
 
 
             </div>
             <div className={"buttonsWrapper"}>
-                {/*<button className={"buttons"}*/}
-                {/*        disabled={props.counterValue >= 5}*/}
-                {/*        onClick={onClickIncHandler}*/}
-                {/*>inc*/}
-                {/*</button>*/}
-                {/*<button className={"buttons"}*/}
-                {/*        disabled={props.counterValue === 0}*/}
-                {/*        onClick={onClickResetHandler}*/}
-                {/*>reset*/}
-                {/*</button>*/}
                 <Button className={"class-1"} name={"set"}
-                        disabled={inputMaxCounterValue < inputStartCounterValue || !props.editMode}
+                        disabled={!!props.error || !props.editMode}
                         onClick={setButtonHandler}/>
 
             </div>

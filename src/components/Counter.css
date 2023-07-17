@@ -73,3 +73,7 @@
     font-size: 20px;
     padding-top: 20px
 }
+
+.inputRed {
+    background-color: red;
+}

@@ -45,6 +45,7 @@ function App() {
                         setError={setError}
                         editMode={editMode}
                         setEditMode={setEditMode}
+                        error={error}
             />
             <Counter maxValue={maxValue}
                      startValue={startValue}
