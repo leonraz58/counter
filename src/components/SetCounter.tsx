@@ -1,5 +1,5 @@
 import {Button} from "./Button";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 
 
 type SetCounterPropsType = {
@@ -11,9 +11,26 @@ type SetCounterPropsType = {
     editMode: boolean
     setEditMode:(editMode: boolean) => void
     error: string | null
+    setMaxValue: (number: number) => void
+    setStartValue: (number: number) => void
 }
 export const SetCounter = (props: SetCounterPropsType) => {
 
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('maxValue')
+        if(valueAsString) {
+            let newValue = JSON.parse(valueAsString)
+            setInputMaxCounterValue(newValue)
+        }
+    },[])
+
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('startValue')
+        if(valueAsString) {
+            let newValue = JSON.parse(valueAsString)
+            setInputStartCounterValue(newValue)
+        }
+    },[])
 
     const [inputMaxCounterValue, setInputMaxCounterValue] = useState(props.maxValue)
     const [inputStartCounterValue, setInputStartCounterValue] = useState(props.startValue)

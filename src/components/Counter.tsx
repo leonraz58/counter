@@ -36,16 +36,6 @@ export const Counter = (props: CounterPropsType) => {
 
             </div>
             <div className={"buttonsWrapper"}>
-                {/*<button className={"buttons"}*/}
-                {/*        disabled={props.counterValue >= 5}*/}
-                {/*        onClick={onClickIncHandler}*/}
-                {/*>inc*/}
-                {/*</button>*/}
-                {/*<button className={"buttons"}*/}
-                {/*        disabled={props.counterValue === 0}*/}
-                {/*        onClick={onClickResetHandler}*/}
-                {/*>reset*/}
-                {/*</button>*/}
                 <Button className={"class-1"} name={"inc"} disabled={props.counterValue >= props.maxValue || props.editMode}
                         onClick={onClickIncHandler}/>
                 <Button className={"class-2"} name={"reset"} disabled={props.counterValue <= props.startValue || props.editMode}
